@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "read_file_response",
+  "description": "Response schema for file reading",
+  "type": "object",
+  "properties": {
+    "file": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string" },
+        "name": { "type": "string" },
+        "size": { "type": "integer", "minimum": 0 },
+        "mime_type": { "type": "string" },
+        "encoding": { "type": "string" },
+        "permissions": {
+          "type": "object",
+          "properties": {
+            "readable": { "type": "boolean" },
+            "writable": { "type": "boolean" },
+            "executable": { "type": "boolean" }
+          }
+        },
+        "modified_time": { "type": "string", "format": "date-time" }
+      },
+      "required": ["path", "name", "size", "permissions", "modified_time"]
+    },
+    "content": {
+      "oneOf": [
+        { "type": "string", "description": "Text content" },
+        { "type": "object", "description": "Binary content metadata" }
+      ]
+    },
+    "lines": {
+      "type": "integer",
+      "description": "Number of lines (for text files)",
+      "minimum": 0
+    },
+    "truncated": {
+      "type": "boolean",
+      "description": "Whether content was truncated due to size limits",
+      "default": false
+    }
+  },
+  "required": ["file", "content"],
+  "additionalProperties": false
+}
