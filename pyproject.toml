@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_backend"
+
+[project]
+name = "mcp-nemotron"
+version = "0.1.0"
+description = "MCP Server for LLM Directory and File Browsing"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp",
+    "pydantic",
+    "aiofiles",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-asyncio",
+]
+dev = [
+    "black",
+    "flake8",
+    "isort",
+    "mypy",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true

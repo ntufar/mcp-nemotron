@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "read_file",
+  "description": "Read content of a file",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Absolute path to the file to read",
+      "pattern": "^/"
+    },
+    "encoding": {
+      "type": "string",
+      "description": "Text encoding to use (auto-detected if not specified)",
+      "enum": ["utf-8", "ascii", "latin-1", "auto"],
+      "default": "auto"
+    },
+    "start_line": {
+      "type": "integer",
+      "description": "Starting line number (1-based, for text files only)",
+      "minimum": 1
+    },
+    "end_line": {
+      "type": "integer",
+      "description": "Ending line number (1-based, for text files only)",
+      "minimum": 1
+    }
+  },
+  "required": ["path"],
+  "additionalProperties": false
+}

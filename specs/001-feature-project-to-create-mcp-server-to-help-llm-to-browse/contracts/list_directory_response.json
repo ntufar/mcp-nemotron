@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "list_directory_response",
+  "description": "Response schema for directory listing",
+  "type": "object",
+  "properties": {
+    "directory": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string" },
+        "name": { "type": "string" },
+        "permissions": {
+          "type": "object",
+          "properties": {
+            "readable": { "type": "boolean" },
+            "writable": { "type": "boolean" },
+            "executable": { "type": "boolean" }
+          }
+        },
+        "modified_time": { "type": "string", "format": "date-time" },
+        "item_count": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["path", "name", "permissions", "modified_time", "item_count"]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": { "const": "directory" },
+              "path": { "type": "string" },
+              "name": { "type": "string" },
+              "permissions": {
+                "type": "object",
+                "properties": {
+                  "readable": { "type": "boolean" },
+                  "writable": { "type": "boolean" },
+                  "executable": { "type": "boolean" }
+                }
+              },
+              "modified_time": { "type": "string", "format": "date-time" },
+              "item_count": { "type": "integer", "minimum": 0 }
+            },
+            "required": ["type", "path", "name", "permissions", "modified_time"]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": { "const": "file" },
+              "path": { "type": "string" },
+              "name": { "type": "string" },
+              "size": { "type": "integer", "minimum": 0 },
+              "permissions": {
+                "type": "object",
+                "properties": {
+                  "readable": { "type": "boolean" },
+                  "writable": { "type": "boolean" },
+                  "executable": { "type": "boolean" }
+                }
+              },
+              "modified_time": { "type": "string", "format": "date-time" },
+              "mime_type": { "type": "string" }
+            },
+            "required": ["type", "path", "name", "size", "permissions", "modified_time"]
+          }
+        ]
+      }
+    }
+  },
+  "required": ["directory", "items"],
+  "additionalProperties": false
+}
